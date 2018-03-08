@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ToDoList</title>
+</head>
+<link rel="stylesheet" href="bootstrap.css">
+<style>
+    .del{
+        text-decoration: line-through;
+        color: gray;
+    }
+</style>
+<body>
+    <div id="root">
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">
+                        ToDoList
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <div class="row">
+                <div class="panel panel-collapse">
+                    <div class="panel-body">
+                        <h3 class="text-warning">亲，您还有<span v-text="count"></span>件事儿没有完成</h3>
+                        <div class="input-group input-group-sm">
+                            <input type="text" v-model="title" @keyup.enter="add" class="form-control" placeholder="请输入要添加的任务">
+                            <span class="input-group-btn">
+                                <button @click="add" class="btn btn-xs btn-danger"><span class=" glyphicon glyphicon-plus"></span></button>
+                            </span>
+                        </div>
+                        <br/>
+                        <ul class="nav nav-pills">
+                            <li role="presentation" :class="{active:hash==='all'}"><a href="#all">全部任务</a></li>
+                            <li role="presentation" :class="{active:hash==='finished'}"><a href="#finished">已完成</a></li>
+                            <li role="presentation" :class="{active:hash==='unfinish'}"><a href="#unfinish">未完成</a></li>
+                        </ul>
+                        <br />
+                        <ul class="list-group">
+                            <li v-for="todo in filterTodos" @dblclick="remenber(todo)" class="list-group-item">
+                                <span :class="{del:todo.isSelected}" v-show="todo != cur_todo">
+                                    <input type="checkbox" v-model="todo.isSelected">
+                                    <span v-text="todo.title"></span>
+                                </span>
+                                <input @blur="cancel" @keyup.enter="cancel" type="text" v-model="todo.title" v-show="todo == cur_todo" v-focus="todo == cur_todo">
+                                <button @click="remove(todo)" class="btn btn-danger pull-right btn-xs glyphicon glyphicon-remove"></button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<script src="vue.js"></script>
+<script src="todo.js"></script>
+</body>
+
+</html>
