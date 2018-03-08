@@ -2,7 +2,7 @@ let root = new Vue({
     el : '#root',
     data : {
         todos : [{"isSelected":false,"title":"吃饭"},
-            {"isSelected":false,"title":"睡觉"}],
+            {"isSelected":false,"title":"写代码"}],
         title : '',
         cur_todo : {},
         hash : 'all'
@@ -13,7 +13,6 @@ let root = new Vue({
         //监控hash值的变化
         window.addEventListener('hashchange',()=>{
             this.hash = window.location.hash.slice(1);
-            console.log(this.hash)
         },false);
     },
     methods : {
